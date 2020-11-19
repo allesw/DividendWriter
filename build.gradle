@@ -1,0 +1,22 @@
+group 'dividendwriter'
+version '1.0'
+
+mainClassName = 'dividendwriter.Controller'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.8'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'dividendwriter.Controller'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+}
